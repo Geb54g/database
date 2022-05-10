@@ -1,10 +1,12 @@
 from flask import Flask,render_template,url_for,flash,redirect
+from flask_sqlalchemy import SQLAlchemy
 from forms import RegistrationForm,LoginForm
 from forms import validators
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '76bfd1aa0261f9781a899f00d901908c'
+app.config['SQLALCHEMY_DATABASE_URI'] = ''
 
 posts = [
     {
