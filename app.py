@@ -2,6 +2,7 @@ from flask import Flask,render_template,url_for
 
 app = Flask(__name__)
 
+app.config['SECTRET_KEY'] = '76bfd1aa0261f9781a899f00d901908c'
 
 posts = [
     {
