@@ -4,23 +4,23 @@ import secrets
 from wsgiref import validate
 from flask import render_template,url_for,flash,redirect
 from app import app
-from app.forms import RegistrationForm,LoginForm,UpdateAccountForm,PostForm
-from app.models import User,Post
+from app.forms import RegistrationForm,LoginForm,UpdateAccountForm,PitchForm
+from app.models import User,Pitch
 from flask_login import login_user
 
 # from app.models import User,Post
 
-posts = [
+pitches = [
     {
         'author':'Gabriel Ndolo',
-        'title':'Blog post 1',
-        'content':'First post content',
+        'title':' Product Pitch',
+        'content':'pitch content',
         'date_posted':'May 2,2022'
     },
     {
         'author':'Gabriella Heinze',
-        'title':'Blog post 2',
-        'content':'Second post content',
+        'title':'Promotional pitch ',
+        'content':'pitch content',
         'date_posted':'June 6,2022'
     }
 ]
@@ -30,7 +30,7 @@ posts = [
 @app.route("/home")
 
 def home():
-    return render_template('home.html', posts = posts)
+    return render_template('home.html', pitches = pitches)
 
 
 @app.route("/about")
@@ -43,7 +43,7 @@ def about():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for{form.username.data}!','success')
+        flash(f'Account created for {form.username.data}!','success')
         return redirect(url_for('home'))
     return render_template('register.html',title ='Register', form= form)
 
@@ -76,14 +76,14 @@ def account():
 
 
 
-@app.route("/post/new",methods=['GET','POST'])
-def new_post():
-    form = PostForm()
+@app.route("/pitch/new",methods=['GET','POST'])
+def new_pitch():
+    form = PitchForm()
     if form.validate_on_submit():
         flash('Your post has been created!','success')
         return redirect(url_for('home'))
     
-    return render_template('posts.html',title ='New Posts',form=form)
+    return render_template('pitches.html',title ='New Pitches',form=form)
 
 
 
