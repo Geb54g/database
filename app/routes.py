@@ -1,6 +1,6 @@
 from flask import render_template,url_for,flash,redirect
 from app import app
-from app.forms import RegistrationForm,LoginForm
+from app.forms import RegistrationForm,LoginForm,UpdateAccountForm
 from app.models import User,Post
 from flask_login import login_user
 
@@ -56,7 +56,8 @@ def login():
 
 @app.route("/account")
 def account():
-    return render_template('account.html',title ='Account')
+    form = UpdateAccountForm()
+    return render_template('account.html',title ='Account',form=form)
 
 
 
