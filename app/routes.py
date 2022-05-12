@@ -1,9 +1,10 @@
 from fileinput import filename
 import os
 import secrets
+from wsgiref import validate
 from flask import render_template,url_for,flash,redirect
 from app import app
-from app.forms import RegistrationForm,LoginForm,UpdateAccountForm
+from app.forms import RegistrationForm,LoginForm,UpdateAccountForm,PostForm
 from app.models import User,Post
 from flask_login import login_user
 
@@ -75,9 +76,14 @@ def account():
 
 
 
-@app.route("/post/new")
-def about():
-    return render_template('posts.html',title ='New Posts')
+@app.route("/post/new",methods=['GET','POST'])
+def new_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        flash('Your post has been created!','success')
+        return redirect(url_for('home'))
+    
+    return render_template('posts.html',title ='New Posts',form=form)
 
 
 
