@@ -1,6 +1,9 @@
 from flask import render_template,url_for,flash,redirect
 from app import app
 from app.forms import RegistrationForm,LoginForm
+from app.models import User,Post
+from flask_login import login_user
+
 # from app.models import User,Post
 
 posts = [
@@ -44,13 +47,17 @@ def register():
 
 
 @app.route("/login",methods=['GET','POST'])
-
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         flash('You have been login','success')
         return redirect(url_for('login'))
     return render_template('login.html',title ='Login', form= form)
+
+@app.route("/account")
+def account():
+    return render_template('account.html',title ='Account')
+
 
 
 
