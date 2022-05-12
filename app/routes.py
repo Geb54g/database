@@ -1,14 +1,7 @@
-from flask import Flask,render_template,url_for,flash,redirect
-from flask_sqlalchemy import SQLAlchemy
-from forms import RegistrationForm,LoginForm
-from forms import validators
-
-app = Flask(__name__)
-
-app.config['SECRET_KEY'] = '76bfd1aa0261f9781a899f00d901908c'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
-
+from flask import render_template,url_for,flash,redirect
+from app import app
+from app.forms import RegistrationForm,LoginForm
+# from app.models import User,Post
 
 posts = [
     {
@@ -56,13 +49,9 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         flash('You have been login','success')
-        return redirect(url_for('home'))
+        return redirect(url_for('login'))
     return render_template('login.html',title ='Login', form= form)
 
 
 
 
-
-if __name__=='__main__':
-    app.run(debug=True)
-    
