@@ -1,3 +1,6 @@
+from fileinput import filename
+import os
+import secrets
 from flask import render_template,url_for,flash,redirect
 from app import app
 from app.forms import RegistrationForm,LoginForm,UpdateAccountForm
@@ -30,7 +33,6 @@ def home():
 
 
 @app.route("/about")
-
 def about():
     return render_template('about.html',title ='About')
 
@@ -54,10 +56,28 @@ def login():
         return redirect(url_for('login'))
     return render_template('login.html',title ='Login', form= form)
 
-@app.route("/account")
+
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+    form_picture.save(picture_path)
+    
+    
+    return picture_fn
+
+
+@app.route("/account",methods=['GET','POST'])
 def account():
     form = UpdateAccountForm()
     return render_template('account.html',title ='Account',form=form)
+
+
+
+@app.route("/post/new")
+def about():
+    return render_template('posts.html',title ='New Posts')
 
 
 
