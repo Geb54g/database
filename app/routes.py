@@ -91,7 +91,7 @@ def account():
 def new_pitch():
     form = PitchForm()
     if form.validate_on_submit():
-        flash('Your post has been created!','success')
+        flash('Your pitch has been created!','success')
         return redirect(url_for('home'))
     
     return render_template('pitches.html',title ='New Pitches',form=form)
