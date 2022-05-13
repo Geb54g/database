@@ -3,7 +3,7 @@ import os
 import secrets
 from wsgiref import validate
 from flask import render_template,url_for,flash,redirect
-from app import app
+from app import app,db,bcrypt
 from app.forms import RegistrationForm,LoginForm,UpdateAccountForm,PitchForm
 from app.models import User,Pitch
 from flask_login import login_user
@@ -12,16 +12,28 @@ from flask_login import login_user
 
 pitches = [
     {
-        'author':'Gabriel Ndolo',
+        'author':'Shawn Brook',
         'title':' Product Pitch',
         'content':'pitch content',
         'date_posted':'May 2,2022'
     },
     {
-        'author':'Gabriella Heinze',
+        'author':'Jane Heinze',
         'title':'Promotional pitch ',
         'content':'pitch content',
-        'date_posted':'June 6,2022'
+        'date_posted':'October 6,2022'
+    },
+     {
+        'author':'Wayne Hon',
+        'title':'Pick-up pitch ',
+        'content':' Are you a parking ticket? Cause you have got fine written all over you',
+        'date_posted':'Match 11,2022'
+    },
+      {
+        'author':'Luke Woods',
+        'title':'Business pitch ',
+        'content':'pitch content',
+        'date_posted':'April 4,2022'
     }
 ]
 
@@ -39,12 +51,11 @@ def about():
 
 
 @app.route("/register",methods=['GET','POST'])
-
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for {form.username.data}!','success')
-        return redirect(url_for('home'))
+        flash(f'Your account has been created!','success')
+        return redirect(url_for('login'))
     return render_template('register.html',title ='Register', form= form)
 
 

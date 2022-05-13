@@ -14,7 +14,7 @@ class User(db.Model,UserMixin):
     email = db.Column(db.String(130),unique = True,nullable = False)
     image_file = db.Column(db.String(30),nullable = False,default='default.jpg')
     password = db.Column(db.String(60), nullable = False)
-    post = db.relationship('post',backref='author',lazy=True)
+    pitch = db.relationship('pitch',backref='author',lazy=True)
     
     def __repr__(self):
         return f"User('{self.username}','{self.email}','{self.image_file}')"
